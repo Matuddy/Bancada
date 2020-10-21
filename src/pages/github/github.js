@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import './github.css'
 
 class Github extends Component{
     constructor(){
@@ -23,25 +24,33 @@ class Github extends Component{
         const {user, repo} = this.state;
         // console.log(repo);
         return <>
-            <div className="row">
-                <div className="col-3">
-                    <p>Meu GitHub infos</p>
-                    <p>
-                        Login: @{user.login} <br/>
-                    </p>
-                </div>
+            <div className="container">
+                <div className="row">
+                    <div className="col-3">
+                        <p className="titulo">Meu GitHub infos</p>
+                        <div>
+                            <img className="circle-photo" src={user.avatar_url}></img>
+                            <div>
+                            <span className="font-weight-bold">Login:</span> @{user.login} <br/>
+                            <span className="font-weight-bold">Name:</span> {user.name} <br/>
+                            <span className="font-weight-bold">company:</span> {user.company} <br/>
+                            <span className="font-weight-bold">location:</span> {user.location} <br/>
+                            </div>
+                        </div>
+                    </div>
 
-                <div className="col-4">
-                <div>{user.login}</div>
-                {repo.map(
-                repositorio => 
-                <p>
-                    Nome do repositorio: {repositorio.name} <br/>
-                    Descrição: {repositorio.description} <br/>
-                    Link do Repositório: <a href={repositorio.html_url}>Clique aqui</a>
-                </p>
-                
-            )}
+                    <div className="col-9">
+                    <div>{user.login}</div>
+                    {repo.map(
+                    repositorio => 
+                    <div className="card bg-card">
+                        Nome do repositorio: {repositorio.name} <br/>
+                        Descrição: {repositorio.description} <br/>
+                        Link do Repositório: <a href={repositorio.html_url}>Clique aqui</a>
+                    </div>
+                    
+                )}
+                    </div>
                 </div>
             </div>
 

@@ -1,0 +1,16 @@
+.circle-photo {
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+}
+
+.bg-card{
+    /* background-color: rgb(236, 236, 236)!important; */
+    margin-bottom: 1rem;
+    margin-left: 1rem;
+}
+
+.titulo{
+    font-size: 22px;
+    text-align: center;
+}

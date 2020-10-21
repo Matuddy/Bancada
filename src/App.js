@@ -2,11 +2,13 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Github from './pages/github/github'
+import Apidragon from './pages/api-dragon/apidragon'
 
 function App() {
   return (
     <div>
-      <Github></Github>
+      {/* <Github></Github> */}
+      <Apidragon></Apidragon>
     </div>
   );
 }
