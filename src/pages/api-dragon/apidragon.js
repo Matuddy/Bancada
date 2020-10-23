@@ -1,15 +1,14 @@
 import React, { Component } from 'react'
 import './apidragon.css'
+import { Modal, Button, Form } from 'react-bootstrap'
 
 class Apidragon extends Component{
     constructor(){
         super()
-        this.state = {ListDragon: [], dragon: {}, id_dragon: 0};
+        this.state = {ListDragon: [], showModal: false, showAlert: false};
     }
     componentDidMount(){
-        fetch("http://5c4b2a47aa8ee500142b4887.mockapi.io/api/v1/dragon")
-        .then(response => response.json())
-        .then( data => {this.setState({ListDragon: data})})
+        this.getList()
     }
 
     getList(){
@@ -18,8 +17,11 @@ class Apidragon extends Component{
         .then( data => {this.setState({ListDragon: data})})
     }
 
-    onCreate(){
-        const dragon = {name: 'teu pai', type: 'aquele gordo'}
+    onCreate(event){
+        event.preventDefault();
+        let from = event.target;
+
+        const dragon = {name: from.elements.name.value, type: from.elements.type.value }
         const request ={
             method: 'post',
             heders: {'containerType': 'application/json'},
@@ -41,27 +43,35 @@ class Apidragon extends Component{
 
     }
 
+    handleModaClose(){
+        this.setState({showModal: false})
+    }
+
+    handleModaOpen(){
+        this.setState({showModal: true})
+    }
+
     render(){
-        const {ListDragon} = this.state
+        const {ListDragon, showModal, showAlert} = this.state
         return<>
             <div className="container">
-                <button className="btn btn-primary ml-5 my-3">Criar</button>
+                <button onClick={() => this.handleModaOpen()} className="btn btn-primary ml-6 my-3">Criar</button>
                 <div className="row">
                     <div className="col">
                         <table className="table">
-                            <thead>
+                            <thead className='cor'>
                                 <tr>
                                     <th>ID</th>
                                     <th>Name</th>
                                     <th>Tipo</th>
-                                    <th>Data</th>
+                                    <th className='ml-6'>Data</th>
                                     <th className="text-center largura">Açãoes</th>
                                 </tr>
-                            </thead>   
+                            </thead>
                             <tbody>
                             {ListDragon.map(
                                 dragon =>
-                                <tr>
+                                <tr className='cor'>
                                     <td>{dragon.id}</td>
                                     <td>{dragon.name}</td>
                                     <td>{dragon.type}</td>
@@ -77,6 +87,31 @@ class Apidragon extends Component{
                     </div>
                 </div>
             </div>
+            <Modal show={showModal} onHide={()=> this.handleModalClose()}>
+                <Modal.Header>
+                    <Modal.Title>Criar Dragão</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form onClick={this.onCreate}>
+                        <Form.Group controlId='formName'>
+                            <Form.Label>Nome</Form.Label>
+                            <Form.Control type='text' name='name'></Form.Control>
+                        </Form.Group>
+                        <Form.Group controlId='formType'>
+                            <Form.Label>Tipo</Form.Label>
+                            <Form.Control type='text' name='Type'></Form.Control>
+                        </Form.Group>
+                        <Button variant='success' type='submit'>
+                                Enviar
+                        </Button>
+                    </Form>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={()=> this.handleModaClose()}>
+                        Fechar
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </>
     }
 }

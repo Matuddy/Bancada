@@ -6,7 +6,7 @@ import Apidragon from './pages/api-dragon/apidragon'
 
 function App() {
   return (
-    <div>
+    <div className='App'>
       {/* <Github></Github> */}
       <Apidragon></Apidragon>
     </div>
